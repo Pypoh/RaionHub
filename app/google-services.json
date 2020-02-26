@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "376827781959",
+    "firebase_url": "https://raionhub.firebaseio.com",
+    "project_id": "raionhub",
+    "storage_bucket": "raionhub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376827781959:android:09d298bd36b5e208b0e262",
+        "android_client_info": {
+          "package_name": "com.example.raionhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376827781959-kkqtl7smldpjbohca6hi9nus0h1lo6nt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.raionhub",
+            "certificate_hash": "4f816667fb8b4680f276703cddf1de0e06e91924"
+          }
+        },
+        {
+          "client_id": "376827781959-ub651bpjjg8f4ovfmb1i2epk987mqugo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBznu1nyl_qBR2zE-Ecu3G5G5v-pITe2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376827781959-ub651bpjjg8f4ovfmb1i2epk987mqugo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
