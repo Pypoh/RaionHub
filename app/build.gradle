@@ -49,22 +49,25 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.2.1'
     implementation 'androidx.navigation:navigation-ui:2.2.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    implementation 'com.google.firebase:firebase-core:17.2.2'
+    // Test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
 
     // Material
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 
     // MVVM Component
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
     // CameraX
     def camerax_version = '1.0.0-alpha10'
@@ -74,7 +77,5 @@ dependencies {
     implementation "androidx.camera:camera-extensions:1.0.0-alpha07"
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.core:core-ktx:1.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-
 
 }
