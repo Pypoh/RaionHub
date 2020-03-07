@@ -2,68 +2,38 @@ package com.example.raionhub.auth.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.raionhub.LupaPasswordActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.example.raionhub.auth.splash.LupaPasswordActivity
 import com.example.raionhub.R
-import com.example.raionhub.databinding.FragmentLoginBinding
 import com.example.raionhub.main.MainActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginFragment : Fragment() , View.OnClickListener{
+class LoginActivity : AppCompatActivity() , View.OnClickListener{
 
-    private lateinit var dataBinding : FragmentLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
-
-    //Edit Text
     private lateinit var Email : EditText
     private lateinit var Password : EditText
-
-    //Button
     private lateinit var LupaPass : Button
     private lateinit var MasukTamu : Button
     private lateinit var LoginButton : Button
-
-    //Firebase
     private lateinit var mAuth : FirebaseAuth
-
-    //Alert Dialog
     lateinit var alertDialog: AlertDialog
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
-        context ?: return dataBinding.root
-
-        return dataBinding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-
-        dataBinding.loginViewModel = loginViewModel
-        dataBinding.lifecycleOwner = this
-
-        Email = view!!.findViewById(R.id.iet_email_login)
-        Password = view!!.findViewById(R.id.iet_pass_login)
-        LupaPass = view!!.findViewById(R.id.btn_lupapass_login)
-        MasukTamu = view!!.findViewById(R.id.btn_masuktamu_login)
-        LoginButton = view!!.findViewById(R.id.btn_login_login)
+        Email = findViewById(R.id.iet_email_login)
+        Password = findViewById(R.id.iet_pass_login)
+        LupaPass = findViewById(R.id.btn_lupapass_login)
+        MasukTamu = findViewById(R.id.btn_masuktamu_login)
+        LoginButton = findViewById(R.id.btn_login_login)
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -76,7 +46,7 @@ class LoginFragment : Fragment() , View.OnClickListener{
         super.onStart()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -90,13 +60,13 @@ class LoginFragment : Fragment() , View.OnClickListener{
     }
 
     private fun main() {
-        val intent = Intent(context, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
     private fun lupapass() {
-        val intent = Intent(context, LupaPasswordActivity::class.java)
+        val intent = Intent(this@LoginActivity, LupaPasswordActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
@@ -107,7 +77,7 @@ class LoginFragment : Fragment() , View.OnClickListener{
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
                 if (task.isSuccessful) {
                     showProgressDialog()
-                    Toast.makeText(context, "Sign In Berhasil", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Sign In Berhasil", Toast.LENGTH_SHORT).show()
                     main()
                 } else {
                     showProgressDialog()
@@ -116,7 +86,7 @@ class LoginFragment : Fragment() , View.OnClickListener{
                         if (err.contains("password")) {
                             Password.setError(err)
                         } else {
-                            Toast.makeText(context, err, Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext, err, Toast.LENGTH_LONG).show()
                         }
                     }
                 }
@@ -138,14 +108,12 @@ class LoginFragment : Fragment() , View.OnClickListener{
     }
 
     fun showProgressDialog() {
-        val dialogBuilder = context?.let { AlertDialog.Builder(it) }
+        val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.getLayoutInflater()
         val dialogView = inflater.inflate(R.layout.progress_dialog, null)
-        dialogBuilder!!.setView(dialogView)
+        dialogBuilder.setView(dialogView)
         dialogBuilder.setCancelable(false)
-        if (dialogBuilder != null) {
-            alertDialog = dialogBuilder.create()
-        }
+        alertDialog = dialogBuilder.create()
         alertDialog.show()
     }
 }

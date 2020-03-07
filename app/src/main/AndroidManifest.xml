@@ -11,8 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreenActivity"></activity>
-        <activity android:name=".LupaPasswordActivity" />
+
+        <activity android:name=".auth.splash.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".auth.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoTheme">
+        </activity>
+
+
+        <activity
+            android:name=".auth.splash.LupaPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppNoTheme">
+        </activity>
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
@@ -22,11 +41,6 @@
         <activity
             android:name=".main.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

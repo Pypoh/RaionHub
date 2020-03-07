@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="50dp"
+    tools:context=".auth.login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_logo_login"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo_dark"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_text_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/email"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_email_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass_text_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/pass"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_pass_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_lupapass_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Lupa Password?"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textAllCaps="false"
+        android:textAlignment="viewEnd"
+        android:gravity="end" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login_login"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:text="LOGIN"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"
+        app:cornerRadius="12dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="atau"
+        android:layout_marginTop="20dp"
+        android:gravity="center" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_masuktamu_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Masuk sebagai tamu"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:gravity="center" />
+
+</LinearLayout>

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".SplashScreenActivity">
+    tools:context=".auth.splash.SplashScreenActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageSplash_splash"
