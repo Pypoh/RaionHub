@@ -6,4 +6,8 @@
 
     <color name="greenMaterial">#4CAF50</color>
     <color name="redMaterial">#F44336</color>
+
+    <color name="blueMaterial">#122D39</color>
+    <color name="Hitam">#000000</color>
+    <color name="Putih">#FFFFFF</color>
 </resources>
