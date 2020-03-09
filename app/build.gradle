@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -53,13 +54,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Test
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
 
     // Material
@@ -79,6 +80,14 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.core:core-ktx:1.2.0"
 
+    //Circle Image
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //room persistence
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+
 }
 
-apply plugin: 'com.google.gms.google-services'

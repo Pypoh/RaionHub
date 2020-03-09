@@ -13,7 +13,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         private lateinit var animation : Animation
         private lateinit var mDelayHandler : Handler
-        private val SPLASH_DELAY : Long = 5000;
+        private val SPLASH_DELAY : Long = 3000;
 
         internal val mRunnable : Runnable = Runnable {
             if(!isFinishing){

@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:376827781959:android:31cad90e2fa58fe7b0e262",
+        "android_client_info": {
+          "package_name": "com.codinginflow.raionhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376827781959-5e3qtpgl1e2jlv5mgpp8ecjpbb4qtttr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codinginflow.raionhub",
+            "certificate_hash": "6389c29b2312018717757aaa066fe35dc34009d7"
+          }
+        },
+        {
+          "client_id": "376827781959-ub651bpjjg8f4ovfmb1i2epk987mqugo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBznu1nyl_qBR2zE-Ecu3G5G5v-pITe2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376827781959-ub651bpjjg8f4ovfmb1i2epk987mqugo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:376827781959:android:09d298bd36b5e208b0e262",
         "android_client_info": {
           "package_name": "com.example.raionhub"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "376827781959-3lfhhcrbk091dq49p7cbcdn9suedhub6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.raionhub",
+            "certificate_hash": "6389c29b2312018717757aaa066fe35dc34009d7"
+          }
+        },
         {
           "client_id": "376827781959-ga4r8felt7qc96ijgf01t1n62vtbo4vs.apps.googleusercontent.com",
           "client_type": 1,
