@@ -52,6 +52,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "376827781959-l7tj6snvao11gb4hql6i5i29i5u8vki0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.raionhub",
+            "certificate_hash": "150208c4dab8ec33fa127e87ef785842fe437a15"
+          }
+        },
+        {
           "client_id": "376827781959-3lfhhcrbk091dq49p7cbcdn9suedhub6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
