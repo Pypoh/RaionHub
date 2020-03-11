@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="loginViewModel"
             type="com.example.raionhub.ui.auth.login.LoginViewModel" />
@@ -40,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/login_hint_email"
                 android:inputType="textEmailAddress"
-                android:text="@{loginViewModel.email}" />
+                android:text="@={loginViewModel.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/login_hint_password"
                 android:inputType="textPassword"
-                android:text="@{loginViewModel.password}"/>
+                android:text="@={loginViewModel.password}"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -82,7 +81,6 @@
             android:text="@string/login_text_login"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:onClick="@{() -> loginViewModel.loginWithEmailAndPassword()}"
             app:cornerRadius="12dp" />
 
         <com.google.android.material.textview.MaterialTextView

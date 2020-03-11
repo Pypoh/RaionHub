@@ -13,14 +13,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.raionhub.R
 import com.example.raionhub.databinding.ActivityLoginBinding
-import com.example.raionhub.repository.datasource.remote.auth.LoginRepoImpl
+import com.example.raionhub.repository.datasource.remote.auth.login.LoginRepoImpl
 import com.example.raionhub.ui.auth.login.domain.LoginImpl
-import com.example.raionhub.ui.auth.splash.LupaPasswordActivity
+import com.example.raionhub.ui.auth.forgotpassword.LupaPasswordActivity
 import com.example.raionhub.ui.main.MainActivity
+import com.example.raionhub.utils.toast
 import com.example.raionhub.utils.viewobject.Resource
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -49,6 +53,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_login)
         loginDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        loginDataBinding.lifecycleOwner = this
+        loginDataBinding.loginViewModel = loginViewModel
 
         // Ini gausah
 //        Email = findViewById(R.id.iet_email_login)
@@ -59,28 +65,42 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         // Ini harusnya di splash screen
         mAuth = FirebaseAuth.getInstance()
+        initProgressDialog()
 
         // Ini gapapa
-        LoginButton.setOnClickListener(this)
-        LupaPass.setOnClickListener(this)
-        MasukTamu.setOnClickListener(this)
+//        LoginButton.setOnClickListener(this)
+//        LupaPass.setOnClickListener(this)
+//        MasukTamu.setOnClickListener(this)
+
+        loginViewModel.email.observe(this,
+            Observer<String> { t -> toast(t.toString()) })
 
         // New Code from View Model Revision
-//        loginViewModel.fetchLoginAuth.observe(this, Observer {task ->
-//            when(task) {
-//                is Resource.Loading -> {
-//
-//                }
-//
-//                is Resource.Success -> {
-//
-//                }
-//
-//                is Resource.Failure -> {
-//
-//                }
-//            }
-//        })
+        btn_login_login.setOnClickListener(View.OnClickListener {
+            loginViewModel.loginWithEmailAndPassword()
+            loginViewModel.result.observe(this, Observer { task ->
+                when (task) {
+                    is Resource.Loading -> {
+//                        toastMessage("Loading")
+                        alertDialog.show()
+                    }
+
+                    is Resource.Success -> {
+                        toast("Sukses")
+                        alertDialog.dismiss()
+                    }
+
+                    is Resource.Failure -> {
+                        toast(task.throwable.message.toString())
+                        alertDialog.dismiss()
+                    }
+
+                    else -> {
+                        // do nothing
+                    }
+                }
+            })
+        })
     }
 
     // OnStart nya gausah
@@ -99,7 +119,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 //            R.id.btn_lupapass_login -> lupapass()
 //            R.id.btn_masuktamu_login -> main()
 //        }
-}
+    }
 
     private fun main() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -120,12 +140,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task: Task<AuthResult> ->
                     if (task.isSuccessful) {
-                        showProgressDialog()
+//                        showProgressDialog()
                         Toast.makeText(applicationContext, "Sign In Berhasil", Toast.LENGTH_SHORT)
                             .show()
                         main()
                     } else {
-                        showProgressDialog()
+//                        showProgressDialog()
                         val err = task.exception!!.message
                         if (err != null) {
                             if (err.contains("password")) {
@@ -153,13 +173,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         return res
     }
 
-    fun showProgressDialog() {
+    fun initProgressDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.getLayoutInflater()
         val dialogView = inflater.inflate(R.layout.progress_dialog, null)
         dialogBuilder.setView(dialogView)
         dialogBuilder.setCancelable(false)
         alertDialog = dialogBuilder.create()
-        alertDialog.show()
     }
 }

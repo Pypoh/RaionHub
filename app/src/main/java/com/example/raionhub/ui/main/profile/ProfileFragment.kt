@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.raionhub.R
 import com.example.raionhub.ui.auth.login.LoginActivity
-import com.example.raionhub.ui.auth.splash.LupaPasswordActivity
+import com.example.raionhub.ui.auth.forgotpassword.LupaPasswordActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 

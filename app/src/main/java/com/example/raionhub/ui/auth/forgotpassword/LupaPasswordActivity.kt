@@ -1,4 +1,4 @@
-package com.example.raionhub.ui.auth.splash
+package com.example.raionhub.ui.auth.forgotpassword
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
