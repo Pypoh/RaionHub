@@ -8,14 +8,13 @@ import android.view.Window
 import android.view.animation.Animation
 import com.example.raionhub.R
 import com.example.raionhub.ui.auth.login.LoginActivity
+import com.example.raionhub.utils.Constants
 
 class SplashScreenActivity : AppCompatActivity() {
 
-        private lateinit var animation: Animation
         private lateinit var mDelayHandler: Handler
-        private val SPLASH_DELAY: Long = 3000L
 
-        internal val mRunnable: Runnable = Runnable {
+        private val mRunnable: Runnable = Runnable {
             if(!isFinishing){
                 navigateToLoginActivitiy()
             }
@@ -33,7 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
             mDelayHandler = Handler()
 
             //Navigate with delay
-            mDelayHandler.postDelayed(mRunnable, SPLASH_DELAY)
+            mDelayHandler.postDelayed(mRunnable, Constants.SPLASH_SCREEN_DELAY)
         }
 
         private fun navigateToLoginActivitiy() {

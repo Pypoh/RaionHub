@@ -26,13 +26,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var Email: EditText
-    private lateinit var Password: EditText
-    private lateinit var LupaPass: Button
-    private lateinit var MasukTamu: Button
-    private lateinit var LoginButton: Button
     private lateinit var mAuth: FirebaseAuth
     lateinit var alertDialog: AlertDialog
 
@@ -47,47 +42,31 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         ).get(LoginViewModel::class.java)
     }
 
-    /* NOTE: Semua logic harusnya di viewModel */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_login)
+
+        // Data Binding
         loginDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         loginDataBinding.lifecycleOwner = this
         loginDataBinding.loginViewModel = loginViewModel
 
-        // Ini gausah
-//        Email = findViewById(R.id.iet_email_login)
-//        Password = findViewById(R.id.iet_pass_login)
-//        LupaPass = findViewById(R.id.btn_lupapass_login)
-//        MasukTamu = findViewById(R.id.btn_masuktamu_login)
-//        LoginButton = findViewById(R.id.btn_login_login)
-
-        // Ini harusnya di splash screen
-        mAuth = FirebaseAuth.getInstance()
+        // Init Progress Dialog ONCE!
         initProgressDialog()
 
-        // Ini gapapa
-//        LoginButton.setOnClickListener(this)
-//        LupaPass.setOnClickListener(this)
-//        MasukTamu.setOnClickListener(this)
-
-        loginViewModel.email.observe(this,
-            Observer<String> { t -> toast(t.toString()) })
-
-        // New Code from View Model Revision
+        // Login button on click listener
         btn_login_login.setOnClickListener(View.OnClickListener {
             loginViewModel.loginWithEmailAndPassword()
             loginViewModel.result.observe(this, Observer { task ->
                 when (task) {
                     is Resource.Loading -> {
-//                        toastMessage("Loading")
                         alertDialog.show()
                     }
 
                     is Resource.Success -> {
                         toast("Sukses")
+                        // TODO: Intent ke main
                         alertDialog.dismiss()
+                        intentToMain()
                     }
 
                     is Resource.Failure -> {
@@ -103,74 +82,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    // OnStart nya gausah
-    override fun onStart() {
-        super.onStart()
-//        val currentUser = mAuth.currentUser
-//        if (currentUser != null) {
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//        }
-    }
-
-    override fun onClick(view: View?) {
-//        when (view?.id) {
-//            R.id.btn_login_login -> signIn()
-//            R.id.btn_lupapass_login -> lupapass()
-//            R.id.btn_masuktamu_login -> main()
-//        }
-    }
-
-    private fun main() {
+    private fun intentToMain() {
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-    }
-
-    private fun lupapass() {
-        val intent = Intent(this@LoginActivity, LupaPasswordActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-    }
-
-    private fun signIn() {
-        if (InputValidate()) {
-            val email = Email.getText().toString()
-            val password = Password.getText().toString()
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task: Task<AuthResult> ->
-                    if (task.isSuccessful) {
-//                        showProgressDialog()
-                        Toast.makeText(applicationContext, "Sign In Berhasil", Toast.LENGTH_SHORT)
-                            .show()
-                        main()
-                    } else {
-//                        showProgressDialog()
-                        val err = task.exception!!.message
-                        if (err != null) {
-                            if (err.contains("password")) {
-                                Password.setError(err)
-                            } else {
-                                Toast.makeText(applicationContext, err, Toast.LENGTH_LONG).show()
-                            }
-                        }
-                    }
-                }
-        }
-    }
-
-    // Ini dipindah ke viewmodel
-    private fun InputValidate(): Boolean {
-        var res = true
-        if (Email.getText().toString().isEmpty()) {
-            res = false
-            Email.setError("This is required")
-        }
-        if (Password.getText().toString().isEmpty()) {
-            res = false
-            Password.setError("This is required")
-        }
-        return res
+        finish()
     }
 
     fun initProgressDialog() {

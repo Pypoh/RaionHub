@@ -21,8 +21,8 @@ class LoginViewModel(private val useCase: ILogin) : ViewModel() {
 
     // TODO: Bersihin, tambahin timeout login
 
-    fun loginWithEmailAndPassword() {
-        Log.d("LoginDEBUG: ", "loginDebugOutside: ${email.value}")
+        fun loginWithEmailAndPassword() {
+            Log.d("LoginDEBUG: ", "loginDebugOutside: ${email.value}")
         result = liveData(Dispatchers.IO) {
             emit(Resource.Loading())
             try {
@@ -30,8 +30,8 @@ class LoginViewModel(private val useCase: ILogin) : ViewModel() {
                 if (email.value.isNullOrEmpty() && password.value.isNullOrEmpty()) {
                     emit(Resource.Failure(CustomException("Email or Password can't be blank")))
                 } else {
-                    val eventList = useCase.loginWithEmailAndPassword(email = email.value!!, password = password.value!!)
-                    emit(eventList)
+                    val loginAuthResult = useCase.loginWithEmailAndPassword(email = email.value!!, password = password.value!!)
+                    emit(loginAuthResult)
                 }
             } catch (e: Exception) {
                 emit(Resource.Failure(e.cause!!))
