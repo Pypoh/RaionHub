@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_main_home"
+        android:id="@+id/navigation_home"
         android:title="Home"
         android:icon="@drawable/home"/>
 
     <item
-        android:id="@+id/menu_main_sekret"
+        android:id="@+id/navigation_room"
         android:title="Sekret"
         android:icon="@drawable/sekret"/>
 
     <item
-        android:id="@+id/menu_main_scan"
+        android:id="@+id/navigation_scan"
         android:title="Scan"
         android:icon="@drawable/people"/>
 
     <item
-        android:id="@+id/menu_main_people"
-        android:title="People"
+        android:id="@+id/navigation_memberlist"
+        android:title="Member"
         android:icon="@drawable/people"/>
 
     <item
-        android:id="@+id/menu_main_person"
-        android:title="Person"
+        android:id="@+id/navigation_profile"
+        android:title="Profile"
         android:icon="@drawable/person"/>
 
 </menu>

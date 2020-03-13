@@ -43,7 +43,11 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        loginDataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+
+        // Setup Data Binding
+        loginDataBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
+        loginDataBinding.loginViewModel = loginViewModel
 
         // View Binding
         setupViewBinding(loginDataBinding.root)
@@ -51,6 +55,7 @@ class LoginFragment : Fragment() {
         // Init Progress Dialog
         initProgressDialog()
 
+        // Setup Login Button onClick Listener
         setupButtonListener()
 
         return loginDataBinding.root
@@ -61,31 +66,33 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupButtonListener() {
-        loginButton.setOnClickListener(View.OnClickListener {
+        loginButton.setOnClickListener {
             loginViewModel.loginWithEmailAndPassword()
             loginViewModel.result.observe(viewLifecycleOwner, Observer { task ->
                 when (task) {
                     is Resource.Loading -> {
-                        alertDialog.show()
+                        if (!alertDialog.isShowing) alertDialog.show()
                     }
 
                     is Resource.Success -> {
                         // TODO: Intent ke main
-                        alertDialog.dismiss()
+                        context!!.toast("Success")
+                        if (alertDialog.isShowing) alertDialog.dismiss()
                         intentToMain()
                     }
 
                     is Resource.Failure -> {
+                        if (alertDialog.isShowing) alertDialog.dismiss()
                         context!!.toast(task.throwable.message.toString())
-                        alertDialog.dismiss()
                     }
 
                     else -> {
                         // do nothing
+                        context!!.toast(task.toString())
                     }
                 }
             })
-        })
+        }
     }
 
     private fun intentToMain() {

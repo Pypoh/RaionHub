@@ -7,9 +7,12 @@ import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.tasks.await
 
 class LoginRepoImpl : ILoginRepo {
-    val mAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+    private val mAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
-    override suspend fun loginWithEmailAndPassword(email: String, password: String): Resource<AuthResult?> {
+    override suspend fun loginWithEmailAndPassword(
+        email: String,
+        password: String
+    ): Resource<AuthResult?> {
         return try {
             val data = mAuth
                 .signInWithEmailAndPassword(email, password)

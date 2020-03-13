@@ -2,31 +2,32 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/main_navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.raionhub.main.home.HomeFragment"
+        android:name="com.example.raionhub.ui.main.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
     <fragment
         android:id="@+id/navigation_memberlist"
-        android:name="com.example.raionhub.main.memberlist.MemberListFragment"
+        android:name="com.example.raionhub.ui.main.memberlist.MemberListFragment"
         android:label="@string/title_member_list"
         tools:layout="@layout/fragment_memberlist" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.raionhub.main.profile.ProfileFragment"
+        android:name="com.example.raionhub.ui.main.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_scan"
-        android:name="com.example.raionhub.main.scan.ScanFragment"
+        android:name="com.example.raionhub.ui.main.scan.ScanFragment"
         android:label="ScanFragment" />
     <fragment
         android:id="@+id/navigation_room"
-        android:name="com.example.raionhub.main.room.RoomFragment"
+        android:name="com.example.raionhub.ui.main.room.RoomFragment"
         android:label="fragment_room"
         tools:layout="@layout/fragment_room" />
 </navigation>

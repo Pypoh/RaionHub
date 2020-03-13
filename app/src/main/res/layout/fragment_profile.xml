@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:padding="20dp"
-    tools:context=".main.profile.ProfileFragment">
+    tools:context="com.example.raionhub.ui.main.profile.ProfileFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"

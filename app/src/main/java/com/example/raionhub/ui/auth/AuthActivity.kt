@@ -2,7 +2,6 @@ package com.example.raionhub.ui.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import com.example.raionhub.R
 
 class AuthActivity : AppCompatActivity() {
@@ -10,6 +9,6 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        val authNavController = findNavController(R.id.auth_nav_host_fragment)
+//        val authNavController = findNavController(R.id.auth_nav_host_fragment)
     }
 }
