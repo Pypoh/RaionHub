@@ -19,8 +19,5 @@ class LoginRepoImpl : ILoginRepo {
         } catch (e: FirebaseAuthException) {
             Resource.Failure(e)
         }
-
-
     }
-
 }

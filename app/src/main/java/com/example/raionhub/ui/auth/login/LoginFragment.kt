@@ -2,37 +2,30 @@ package com.example.raionhub.ui.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.raionhub.R
-import com.example.raionhub.databinding.ActivityLoginBinding
+import com.example.raionhub.databinding.FragmentLoginBinding
 import com.example.raionhub.repository.datasource.remote.auth.login.LoginRepoImpl
 import com.example.raionhub.ui.auth.login.domain.LoginImpl
-import com.example.raionhub.ui.auth.forgotpassword.LupaPasswordActivity
 import com.example.raionhub.ui.main.MainActivity
 import com.example.raionhub.utils.toast
 import com.example.raionhub.utils.viewobject.Resource
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.google.android.material.button.MaterialButton
 
-class LoginActivity : AppCompatActivity() {
+class LoginFragment : Fragment() {
 
-    private lateinit var mAuth: FirebaseAuth
-    lateinit var alertDialog: AlertDialog
+    // Utils
+    private lateinit var alertDialog: AlertDialog
 
     // Data Binding
-    private lateinit var loginDataBinding: ActivityLoginBinding
+    private lateinit var loginDataBinding: FragmentLoginBinding
 
     // View Model
     private val loginViewModel: LoginViewModel by lazy {
@@ -42,35 +35,48 @@ class LoginActivity : AppCompatActivity() {
         ).get(LoginViewModel::class.java)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    // Views
+    private lateinit var loginButton: MaterialButton
 
-        // Data Binding
-        loginDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        loginDataBinding.lifecycleOwner = this
-        loginDataBinding.loginViewModel = loginViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        loginDataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        // Init Progress Dialog ONCE!
+        // View Binding
+        setupViewBinding(loginDataBinding.root)
+
+        // Init Progress Dialog
         initProgressDialog()
 
-        // Login button on click listener
-        btn_login_login.setOnClickListener(View.OnClickListener {
+        setupButtonListener()
+
+        return loginDataBinding.root
+    }
+
+    private fun setupViewBinding(view: View) {
+        loginButton = view.findViewById(R.id.btn_login_login)
+    }
+
+    private fun setupButtonListener() {
+        loginButton.setOnClickListener(View.OnClickListener {
             loginViewModel.loginWithEmailAndPassword()
-            loginViewModel.result.observe(this, Observer { task ->
+            loginViewModel.result.observe(viewLifecycleOwner, Observer { task ->
                 when (task) {
                     is Resource.Loading -> {
                         alertDialog.show()
                     }
 
                     is Resource.Success -> {
-                        toast("Sukses")
                         // TODO: Intent ke main
                         alertDialog.dismiss()
                         intentToMain()
                     }
 
                     is Resource.Failure -> {
-                        toast(task.throwable.message.toString())
+                        context!!.toast(task.throwable.message.toString())
                         alertDialog.dismiss()
                     }
 
@@ -83,15 +89,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun intentToMain() {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this.context, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish()
+        activity!!.finish()
     }
 
-    fun initProgressDialog() {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getLayoutInflater()
+    private fun initProgressDialog() {
+        val dialogBuilder = AlertDialog.Builder(context!!)
+        val inflater = this.layoutInflater
         val dialogView = inflater.inflate(R.layout.progress_dialog, null)
         dialogBuilder.setView(dialogView)
         dialogBuilder.setCancelable(false)

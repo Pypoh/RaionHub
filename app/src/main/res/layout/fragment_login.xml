@@ -7,7 +7,6 @@
             type="com.example.raionhub.ui.auth.login.LoginViewModel" />
     </data>
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -24,6 +23,7 @@
             android:layout_height="150dp"
             android:src="@drawable/logo_dark" />
 
+        <!-- Icon diganti jadi outline -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_text_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -66,22 +66,25 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="end"
             android:text="@string/login_text_lupa_password"
             android:textAlignment="viewEnd"
             android:textAllCaps="false" />
 
-        <!-- TODO: Kecilin ukuran buttonnya, sesuain sama mockup -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login_login"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="80dp"
+            android:paddingStart="80dp"
             android:text="@string/login_text_login"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            app:cornerRadius="12dp" />
+            app:cornerRadius="25dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"

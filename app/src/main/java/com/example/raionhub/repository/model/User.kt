@@ -21,16 +21,13 @@ object User {
         @ColumnInfo(name = "user_password")
         var password: String = "",
         @ColumnInfo(name = "user_division")
-        var division: String = "")
+        var division: String = ""
+    )
 
     data class UserLogin(
         @ColumnInfo(name = "login_nim")
-        var nim : String,
+        var nim: String,
         @ColumnInfo(name = "login_password")
-        var password : String
+        var password: String
     )
 }
-
-
-
-

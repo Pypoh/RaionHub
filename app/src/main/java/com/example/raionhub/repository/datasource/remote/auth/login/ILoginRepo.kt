@@ -6,6 +6,4 @@ import com.google.firebase.auth.AuthResult
 interface ILoginRepo {
 
     suspend fun loginWithEmailAndPassword(email: String, password: String): Resource<AuthResult?>
-
-
 }
