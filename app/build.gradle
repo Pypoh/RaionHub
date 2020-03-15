@@ -62,8 +62,9 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
+    implementation 'com.google.firebase:firebase-ml-vision-barcode-model:16.0.2'
 
     // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
