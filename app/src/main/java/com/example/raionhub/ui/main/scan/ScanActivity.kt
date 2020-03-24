@@ -15,9 +15,15 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.raionhub.R
+import com.example.raionhub.repository.datasource.remote.auth.login.LoginRepoImpl
+import com.example.raionhub.repository.datasource.remote.firestore.scan.ScanRepoImpl
+import com.example.raionhub.ui.auth.login.LoginVMFactory
+import com.example.raionhub.ui.auth.login.LoginViewModel
+import com.example.raionhub.ui.auth.login.domain.LoginImpl
+import com.example.raionhub.ui.main.scan.domain.ScanImpl
 import com.example.raionhub.utils.Constants
-import com.example.raionhub.utils.toast
 import com.google.common.util.concurrent.ListenableFuture
 import java.util.concurrent.Executors
 
@@ -26,7 +32,16 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var cameraPreview: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var imagePreview: Preview
+
     private val executor = Executors.newSingleThreadExecutor()
+
+    // View Model
+    private val scanViewModel: ScanViewModel by lazy {
+        ViewModelProvider(
+            this,
+            ScanVMFactory(ScanImpl(ScanRepoImpl()))
+        ).get(ScanViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +59,12 @@ class ScanActivity : AppCompatActivity() {
 
         // Init Camera
         initCamera()
+
+        // TODO: ViewModel
+
     }
 
     private fun initCamera() {
-
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
     }
 
@@ -60,10 +77,13 @@ class ScanActivity : AppCompatActivity() {
         imagePreview.setSurfaceProvider(cameraPreview.previewSurfaceProvider)
 
         val qrCodeAnalyzer = QrCodeAnalyzer { qrCodes ->
-            Log.d("QrCodeAnalyzer", "working on activity")
             qrCodes.forEach {
-                toast(it.rawValue.toString())
-                Log.d("ScanActivity", "QR Code detected: ${it.rawValue}.")
+                if (!it.rawValue.isNullOrEmpty()) {
+                    Log.d("ScanActivity", "QR Code detected: ${it.rawValue}.")
+                    if (it.rawValue.equals(Constants.IN_QR_CODE_TEXT) || it.rawValue.equals(Constants.OUT_QR_CODE_TEXT)) {
+
+                    }
+                }
             }
         }
 
@@ -73,7 +93,8 @@ class ScanActivity : AppCompatActivity() {
 
         imageAnalysis.setAnalyzer(executor, qrCodeAnalyzer)
 
-        val cameraSelector = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+        val cameraSelector =
+            CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
         cameraProviderFuture.addListener(Runnable {
             val cameraProvider = cameraProviderFuture.get()
             cameraProvider.bindToLifecycle(this, cameraSelector, imagePreview, imageAnalysis)

@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         nav_button_scan.setOnClickListener {
             intentToCamera()
         }
+
     }
 
     private fun intentToCamera() {

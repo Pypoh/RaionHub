@@ -1,7 +1,6 @@
 package com.example.raionhub.ui.main.scan
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.firebase.ml.vision.FirebaseVision
@@ -19,8 +18,8 @@ class QrCodeAnalyzer(
         val rotationDegrees = image.imageInfo.rotationDegrees
 
         val option = FirebaseVisionBarcodeDetectorOptions.Builder()
-            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_QR_CODE)
-            .build()
+                .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_QR_CODE)
+                .build()
 
         val detector = FirebaseVision.getInstance().getVisionBarcodeDetector(option)
 
@@ -28,18 +27,16 @@ class QrCodeAnalyzer(
         val visionImage = FirebaseVisionImage.fromMediaImage(image.image!!, rotation)
 
         detector.detectInImage(visionImage)
-            .addOnSuccessListener { barcodes ->
-                onQrCodesDetected(barcodes)
-                Log.d("QrCodeAnalyzer", "working")
-                if (barcodes.isNotEmpty()) {
-                    Log.d("QrCodeAnalyzer", "detected something")
+                .addOnSuccessListener { barcodes ->
+                    if (barcodes.isNotEmpty()) {
+                        // pass barcode data
+                        onQrCodesDetected(barcodes)
+                    }
+                    image.close()
                 }
-                image.close()
-            }
-            .addOnFailureListener {
-                Log.d("QrCodeAnalyzer", "something went wrong", it)
-                image.close()
-            }
+                .addOnFailureListener {
+                    image.close()
+                }
     }
 
     private fun rotationDegreesToFirebaseRotation(rotationDegrees: Int): Int {
